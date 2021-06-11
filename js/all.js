@@ -53,18 +53,21 @@ const app = Vue.createApp({
             })
         },
         openModal(item) {
+            this.loadingStatus.loadingItem = item.id;
             console.log(item.id);
-            this.$refs.userProductModal.openModal();
             const api = `${base_url}api/${api_path}/product/${item.id}`
             axios.get(api).then(res => {
                 console.log(res);
                 if(res.data.success){
                     this.product = res.data.product;
                     // console.log(this.product);
+                    this.$refs.userProductModal.openModal();
+                    this.loadingStatus.loadingItem = '';
                 }
             })
         },
         addCart(id, qty = 1){
+            this.loadingStatus.loadingItem = id;
             const cart = {
                 product_id: id,
                 qty
@@ -75,6 +78,8 @@ const app = Vue.createApp({
                 if(res.data.success){
                     console.log(res);
                     alert(res.data.message)
+                    this.getCart();
+                    this.loadingStatus.loadingItem = '';
                 }
             })
         },
@@ -82,6 +87,21 @@ const app = Vue.createApp({
             const api = `${base_url}api/${api_path}/cart`
             axios.get(api).then(res => {
                 console.log(res);
+                this.cart = res.data.data;
+                console.log(this.cart);
+            })
+        },
+        updateCart(item){
+            this.loadingStatus.loadingItem = item.id;
+            const api = `${base_url}api/${api_path}/cart/${item.id}`;
+            const cart = {
+                product_id: item.product.id,
+                qty: item.qty
+            }
+            console.log(api, cart);
+            axios.put(api, {data:cart}).then(res => {
+                console.log(res);
+                this.loadingStatus.loadingItem = '';
             })
         }
     },

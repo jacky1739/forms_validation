@@ -46,11 +46,11 @@
                 </td>
                 <td>
                   <div class="btn-group btn-group-sm">
-                    <button type="button" @click="openModal(item)" class="btn btn-outline-secondary">
+                    <button type="button" :disabled="loadingStatus.loadingItem === item.id" @click="openModal(item)" class="btn btn-outline-secondary">
                       <i class="fas fa-spinner fa-pulse"></i>
                       查看更多
                     </button>
-                    <button type="button" class="btn btn-outline-danger" @click="addCart(item.id)">
+                    <button type="button" :disabled="loadingStatus.loadingItem === item.id" class="btn btn-outline-danger" @click="addCart(item.id)">
                       <i class="fas fa-spinner fa-pulse"></i>
                       加到購物車
                     </button>
@@ -73,8 +73,8 @@
               </tr>
             </thead>
             <tbody>
-              <template>
-                <tr>
+              <template v-if="cart.carts">
+                <tr v-for="item in cart.carts" :key="item.id">
                   <td>
                     <button type="button" class="btn btn-outline-danger btn-sm">
                       <i class="fas fa-spinner fa-pulse"></i>
@@ -82,18 +82,18 @@
                     </button>
                   </td>
                   <td>
-                    {{  }}
+                    {{ item.product.title }}
                   </td>
                   <td>
                     <div class="input-group input-group-sm">
                       <div class="input-group mb-3">
-                        <input min="1" type="number" class="form-control">
+                        <input min="1" type="number" :disabled="loadingStatus.loadingItem === item.id" @change="updateCart(item)" v-model.number="item.qty" class="form-control">
                         <span class="input-group-text" id="basic-addon2">{{  }}</span>
                       </div>
                     </div>
                   </td>
                   <td class="text-end">
-                    {{  }}
+                    {{ item.total }}
                   </td>
                 </tr>
               </template>
