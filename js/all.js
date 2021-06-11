@@ -80,6 +80,7 @@ const app = Vue.createApp({
                     alert(res.data.message)
                     this.getCart();
                     this.loadingStatus.loadingItem = '';
+                    this.$refs.userProductModal.hideModal();
                 }
             })
         },
@@ -102,6 +103,7 @@ const app = Vue.createApp({
             axios.put(api, {data:cart}).then(res => {
                 console.log(res);
                 this.loadingStatus.loadingItem = '';
+                this.getCart();
             })
         },
         onSubmit(){
@@ -112,7 +114,6 @@ const app = Vue.createApp({
                 if(res.data.success){
                     this.$refs.form.resetForm();
                     this.getCart();
-                    this.forms.messages = '';
                 }
             })
 
