@@ -26,6 +26,7 @@ const app = Vue.createApp({
             },
             //產品列表
             products: [],
+            product: {},
             // props 傳遞到內層的站存資料
             forms: {
                 user: {
@@ -58,14 +59,36 @@ const app = Vue.createApp({
             axios.get(api).then(res => {
                 console.log(res);
                 if(res.data.success){
-                    console.log(res.data.product);
+                    this.product = res.data.product;
+                    // console.log(this.product);
                 }
+            })
+        },
+        addCart(id, qty = 1){
+            const cart = {
+                product_id: id,
+                qty
+            }
+            console.log(cart);
+            const api = `${base_url}api/${api_path}/cart`
+            axios.post(api, {data:cart}).then(res => {
+                if(res.data.success){
+                    console.log(res);
+                    alert(res.data.message)
+                }
+            })
+        },
+        getCart(){
+            const api = `${base_url}api/${api_path}/cart`
+            axios.get(api).then(res => {
+                console.log(res);
             })
         }
     },
     mounted() {
         // this.$refs.userProductModal.openModal();
         this.getProducts();
+        this.getCart();
     },
 });
 

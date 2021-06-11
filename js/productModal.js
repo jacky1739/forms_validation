@@ -27,7 +27,7 @@ export default{
                 <div class="input-group">
                   <input type="number" class="form-control"
                           min="1">
-                  <button type="button" class="btn btn-outline-primary">加入購物車</button>
+                  <button type="button" class="btn btn-outline-primary" @click="addCart(tempProduct.id)">加入購物車</button>
                 </div>
               </div>
             </div>
@@ -47,7 +47,9 @@ export default{
     }
   },
   watch: {
-    
+    product(){
+      this.tempProduct = this.product;
+    }
   },
   mounted() {
     this.modal = new bootstrap.Modal(this.$refs.modal);
@@ -59,5 +61,9 @@ export default{
     hideModal() {
         this.modal.hide();
     },
+    addCart(tempProductId){
+      this.$emit('add-cart', tempProductId, this.qty)
+      // console.log(this.qty);
+    }
   },
 }
