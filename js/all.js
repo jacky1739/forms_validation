@@ -31,7 +31,7 @@ const app = Vue.createApp({
             forms: {
                 user: {
                     name: '',
-                    emil: '',
+                    email: '',
                     tel: '',
                     address: '',
                 },
@@ -103,6 +103,19 @@ const app = Vue.createApp({
                 console.log(res);
                 this.loadingStatus.loadingItem = '';
             })
+        },
+        onSubmit(){
+            const api = `${base_url}api/${api_path}/order`
+            console.log(this.forms);
+            axios.post(api, {data:this.forms}).then(res => {
+                console.log(res);
+                if(res.data.success){
+                    this.$refs.form.resetForm();
+                    this.getCart();
+                    this.forms.messages = '';
+                }
+            })
+
         }
     },
     mounted() {
