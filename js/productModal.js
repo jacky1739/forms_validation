@@ -27,7 +27,9 @@ export default{
                 <div class="input-group">
                   <input type="number" class="form-control"
                           min="1">
-                  <button type="button" class="btn btn-outline-primary" @click="addCart(tempProduct.id)">加入購物車</button>
+                  <button type="button" class="btn btn-outline-primary" @click="addCart(tempProduct.id)">
+                    加入購物車
+                  </button>
                 </div>
               </div>
             </div>
