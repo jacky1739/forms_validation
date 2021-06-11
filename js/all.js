@@ -41,10 +41,31 @@ const app = Vue.createApp({
         };
     },
     methods: {
+        getProducts(){
+            const api = `${base_url}api/${api_path}/products`;
+            axios.get(api).then(res => {
+                if(res.data.success){
+                    this.products = res.data.products;
+                    console.log(this.products);
 
+                }
+            })
+        },
+        openModal(item) {
+            console.log(item.id);
+            this.$refs.userProductModal.openModal();
+            const api = `${base_url}api/${api_path}/product/${item.id}`
+            axios.get(api).then(res => {
+                console.log(res);
+                if(res.data.success){
+                    console.log(res.data.product);
+                }
+            })
+        }
     },
     mounted() {
-        this.$refs.userProductModal.openModal();
+        // this.$refs.userProductModal.openModal();
+        this.getProducts();
     },
 });
 

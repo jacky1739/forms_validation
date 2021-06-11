@@ -10,6 +10,7 @@
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css'
       integrity='sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw=='
       crossorigin='anonymous' />
+    <link rel="stylesheet" href="css/all.css">
 
 </head>
 <body>
@@ -29,21 +30,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr  v-for="item in products" :key="item.id">
                 <td style="width: 200px">
-                  <div style="height: 100px; background-size: cover; background-position: center"></div>
+                  <div style="height: 100px; background-size: cover; background-position: center">
+                    <img :src="item.imageUrl" class="productImg" alt="">
+                  </div>
                 </td>
                 <td>
-                  {{  }}
+                  {{ item.title }}
                 </td>
                 <td>
-                  <div class="h5">{{  }} 元</div>
-                  <del class="h6">原價 {{  }} 元</del>
-                  <div class="h5">現在只要 {{  }} 元</div>
+                  <div class="h5">{{ item.price }} 元</div>
+                  <!-- <del class="h6">原價 {{  }} 元</del>
+                  <div class="h5">現在只要 {{  }} 元</div> -->
                 </td>
                 <td>
                   <div class="btn-group btn-group-sm">
-                    <button type="button" class="btn btn-outline-secondary">
+                    <button type="button" @click="openModal(item)" class="btn btn-outline-secondary">
                       <i class="fas fa-spinner fa-pulse"></i>
                       查看更多
                     </button>
