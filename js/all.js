@@ -122,8 +122,20 @@ const app = Vue.createApp({
                 }
             }).catch(err => {
                 alert(err.message);
+            });
+        },
+        deleteAllCart(){
+            const api = `${base_url}api/${api_path}/carts`
+            axios.delete(api).then(res => {
+                if(res.data.success) { 
+                    console.log(res);
+                    console.log('清除成功');
+                    alert(res.data.message);
+                    this.getCart();
+                }
+            }).catch(err => {
+                alert(err.message);
             })
-
         }
     },
     mounted() {
