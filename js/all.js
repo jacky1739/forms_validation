@@ -48,7 +48,6 @@ const app = Vue.createApp({
                 if(res.data.success){
                     this.products = res.data.products;
                     console.log(this.products);
-
                 }
             })
         },
@@ -64,6 +63,8 @@ const app = Vue.createApp({
                     this.$refs.userProductModal.openModal();
                     this.loadingStatus.loadingItem = '';
                 }
+            }).catch(err => {
+                alert(err.message);
             })
         },
         addCart(id, qty = 1){
@@ -82,6 +83,8 @@ const app = Vue.createApp({
                     this.loadingStatus.loadingItem = '';
                     this.$refs.userProductModal.hideModal();
                 }
+            }).catch(err => {
+                alert(err.message)
             })
         },
         getCart(){
@@ -104,6 +107,8 @@ const app = Vue.createApp({
                 console.log(res);
                 this.loadingStatus.loadingItem = '';
                 this.getCart();
+            }).catch(err => {
+                alert(err.message)
             })
         },
         onSubmit(){
@@ -115,6 +120,8 @@ const app = Vue.createApp({
                     this.$refs.form.resetForm();
                     this.getCart();
                 }
+            }).catch(err => {
+                alert(err.message);
             })
 
         }
